@@ -1,0 +1,130 @@
+
+{include file="overall_header.html"}
+<div data-role="page" id="home">
+ <div data-role="header">
+  <h1>NagUI Mobile</h1>   
+    <a href="./index.php" data-direction="reverse" data-iconpos="notext" data-icon="home" title="home" data-theme="f"></a>
+    <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+ </div>
+ <div data-role="content" role="main">
+ 
+  <div class="content-primary">
+  
+  <fieldset class="ui-grid-b">
+      <div class="ui-block-a"><a href="hosts.php" data-role="button" data-theme="a" >T: {$host_total}</a></div>
+      <div class="ui-block-b"><a href="hosts.php?filter_state_total=1" data-role="button" data-theme="b">P: {$host_down}</a></div>
+      <div class="ui-block-c"><a href="hosts.php?filter_state_unhandeld=1" data-role="button" data-theme="c">U: {$host_unhandeld}</a></div>
+  </fieldset>
+  
+  <fieldset class="ui-grid-b">
+   <div>
+      <div class="ui-block-a"><a href="services.php" data-role="button" data-theme="a">T: {$service_total}</a></div>
+      <div class="ui-block-b"><a href="services.php?filter_state_total=1" data-role="button" data-theme="b">P: {$service_crit}</a></div>
+      <div class="ui-block-c"><a href="services.php?filter_state_unhandeld=1" data-role="button" data-theme="c">U: {$service_unhandeld}</a></div>
+   </div>
+  </fieldset>
+  
+   
+  </div><!-- /primary content --> 
+  
+  <div class="content-secondary">
+   {include file="overall_navigation.html"}
+  </div><!-- /secondary content --> 
+
+ </div><!-- end content -->
+ 
+ {include file="overall_footer_div.html"}
+</div><!-- end page -->
+
+<!--- Page Host Search -->
+ <div id="hostsearch" data-role="page">
+   <div data-role="header">
+     <h1>Host search</h1>
+     <a href="#home" data-direction="reverse" data-iconpos="notext" data-icon="home" title="home" data-theme="f"></a>
+     <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+   </div>
+  <div data-role="content">
+    <form method="get" action="hosts.php">
+    
+      <div data-role="fieldcontainer">
+        <label for="filter_hostname">Hostname:</label>
+        <input id="filter_hostname" type="text" value="" name="filter_hostname">
+      </div>
+      
+      <fieldset data-role="controlgroup">
+        <div role="heading">Host states:</div>
+
+         <input id="filter_state_up" type="checkbox" name="filter_state_up">
+         <label for="filter_state_up" data-theme="c">Up</label>
+         
+         <input id="filter_state_down" type="checkbox" name="filter_state_down">
+         <label for="filter_state_down" data-theme="c">Down</label>
+         
+         <input id="filter_state_unreach" type="checkbox" name="filter_state_unreach">
+         <label for="filter_state_unreach" data-theme="c">Unreach</label>        
+
+      </fieldset>
+      
+      <button data-theme="a" type="submit">Search</button>
+    </form>
+  </div><!-- /content -->
+ {include file="overall_footer_div.html"}
+ </div><!-- end page host search-->
+ 
+ <!--- Page Service Search -->
+ <div id="servicesearch" data-role="page">
+   <div data-role="header">
+     <h1>Service search</h1>
+     <a href="#home" data-direction="reverse" data-iconpos="notext" data-icon="home" title="home" data-theme="f"></a>
+     <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+   </div>
+  <div data-role="content">
+    <form method="get" action="./services.php">
+    
+      <div data-role="fieldcontainer">
+        <label for="filter_host_name">Hostname:</label>
+        <input id="filter_host_name" type="text" value="" name="filter_host_name">
+      </div>
+      
+      <div data-role="fieldcontainer">
+        <label for="filter_service">Service:</label>
+        <input id="filter_service" type="text" value="" name="filter_service">
+      </div>
+      
+      
+      <fieldset data-role="controlgroup">
+        <div role="heading">States:</div>
+
+         <input id="filter_state_ok" type="checkbox" name="filter_state_ok">
+         <label for="filter_state_ok" data-theme="c">Ok</label>
+         
+         <input id="filter_state_warn" type="checkbox" name="filter_state_warn">
+         <label for="filter_state_warn" data-theme="c">Warning</label>
+         
+         <input id="filter_state_crit" type="checkbox" name="filter_state_crit">
+         <label for="filter_state_crit" data-theme="c">Critical</label>    
+         
+         <input id="filter_state_unk" type="checkbox" name="filter_state_unk">
+         <label for="filter_state_unk" data-theme="c">Unknown</label>   
+
+      </fieldset>
+      
+      <fieldset data-type="horizontal" data-role="controlgroup">
+       <div role="heading">Acknowledged:</div>
+        <input id="filter_acknowledged" type="radio" value="1" name="filter_acknowledged">
+        <label for="filter_acknowledged" data-theme="c">Yes</label>
+        
+        <input id="filter_notacknowledged" type="radio" value="0" name="filter_acknowledged">
+        <label for="filter_notacknowledged" data-theme="c">No</label>
+        
+        <input id="dummy1" type="radio" value="no" checked="checked" name="filter_acknowledged">
+        <label for="dummy1" data-theme="c">Ignore</label>
+      </fieldset>
+      
+      
+      <button data-theme="a" type="submit">Search</button>
+    </form>
+  </div><!-- /content -->
+ {include file="overall_footer_div.html"}
+ </div><!-- end page service search-->
+{include file="overall_footer.html"}

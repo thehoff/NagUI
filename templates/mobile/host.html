@@ -1,0 +1,25 @@
+
+{include file="overall_header.html"}
+<div data-role="page">
+ <div data-role="header">
+  <h1>Host</h1>
+  <a href="./index.php" rel="external" data-direction="reverse" data-iconpos="notext" data-icon="home" title="Home" data-theme="f"></a>
+  <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+ </div>
+ <div data-role="content">
+  <div role="main">
+       <ul data-role="listview">
+        <li data-role="list-divider" {if $fields[0].state == 1}style="color:red;"{/if}>{$fields[0].host_name}</li>
+        <li>PNP: {if $fields[0].pnpgraph_present == 1}yes{else}no{/if}</li>
+        <li>Next check: {$fields[0].next_check|date_format:"%H:%M %d.%m.%Y"}</li>
+        <li>Last check: {$fields[0].last_check|date_format:"%H:%M %d.%m.%Y"}</li>
+        <li>Acknowledged: {if $fields[0].acknowledged == 1}yes{else}no{/if}</li>
+      </ul>
+      --
+      <a data-role="button" href="./services.php?filter_host_name={$fields[0].host_name}" rel="external">All Services of Host</a>
+  </div>
+ </div><!-- end content -->
+ {include file="overall_footer_div.html"}
+</div><!-- end page -->
+
+{include file="overall_footer.html"}

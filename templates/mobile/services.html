@@ -1,0 +1,37 @@
+
+{include file="overall_header.html"}
+<div data-role="page">
+ <div data-role="header">
+  <h1>Services</h1>
+  <a href="./index.php" rel="external" data-direction="reverse" data-iconpos="notext" data-icon="home" title="Home" data-theme="f"></a>
+  <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+ </div>
+ <div data-role="content">
+  <div role="main">
+      <ul data-role="listview">      
+        {$last_host = ""}
+        {foreach key=cid item=aus from=$fields}
+         {if $aus.host_name != $last_host}
+            <li data-role="list-divider" role="heading"> 
+              <a href="./host.php?host_name={$aus.host_name}" rel="external" style="{if $aus.host_state=="1"}color:red;{/if}">{$aus.host_name}</a>
+             </li>
+            {$last_host = $aus.host_name}
+         {/if}
+         <li>
+         <a href="./service.php?service_name={$aus.description}&host_name={$aus.host_name}">
+           <p>
+             <strong  style="{if $aus.state=="1"}color:#ffd700;{elseif $aus.state =="2"}color:red;{elseif $aus.state =="3"}color: blue;{/if}">{$aus.description}</strong>
+           </p>
+           <p>
+             {$aus.plugin_output}
+           </p>
+           </a>
+         </li>
+        {/foreach}
+      </ul>
+  </div>
+ </div><!-- end content -->
+ {include file="overall_footer_div.html"}
+</div><!-- end page -->
+
+{include file="overall_footer.html"}

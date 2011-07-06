@@ -1,0 +1,22 @@
+
+{include file="overall_header.html"}
+<div data-role="page">
+ <div data-role="header">
+  <h1>Hostgroups</h1>
+  <a href="./index.php" rel="external" data-direction="reverse" data-iconpos="notext" data-icon="home" title="Home" data-theme="f"></a>
+  <a data-iconpos="notext" data-icon="refresh" title="refresh" data-theme="f" class="refresh"></a>
+ </div>
+ <div data-role="content">
+  <div role="main">
+
+    <ul data-role="listview" data-filter="true" data-theme="g">
+     {foreach key=cid item=aus from=$fields}
+     <li><a href="hostlist.php?filter_host_groups={$aus.name}">{$aus.alias}</a></li>
+    {/foreach}
+   </ul>
+  </div>
+ </div><!-- end content -->
+ {include file="overall_footer_div.html"}
+</div><!-- end page -->
+
+{include file="overall_footer.html"}
