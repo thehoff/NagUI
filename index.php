@@ -57,7 +57,6 @@ $array['service_unhandeld'] = 0;
 
 foreach($erg_services AS $lines)
 {
-  $entries = explode(";",$lines);
   $array['service_total']     = $array['service_total'] + $lines[0];
   $array['service_crit']      = $array['service_crit'] + $lines[1];
   $array['service_unhandeld'] = $array['service_unhandeld'] + $lines[2];
