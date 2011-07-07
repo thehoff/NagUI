@@ -72,7 +72,7 @@ foreach($_GET AS $index => $wert)
 
      
      case "filter_state_total":
-      $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nFilter: host_scheduled_downtime_depth = 0\nStats: host_state = 0\nAnd: 4";
+      $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nFilter: host_scheduled_downtime_depth = 0\nStats: host_state = 0\nAnd: 4\n";
      break;
      
      case "filter_state_unhandeld":
