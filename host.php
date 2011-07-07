@@ -26,15 +26,12 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : "host_name state pnpgraph_present next_check last_check acknowledged comments_with_info" ;
-
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(" ",$columns);
+$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_host) ;
+$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_host);
 
 $host_name    = $_GET['host_name'];
 
 $query = "GET hosts\nColumns: $columns\nFilter: host_name = $host_name\n";
-
-
 
 $erg = $livestatus->query($query);
 

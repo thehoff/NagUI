@@ -1,4 +1,3 @@
-
 {include file="overall_header.html"}
 <div data-role="page">
  <div data-role="header">
@@ -9,17 +8,22 @@
  <div data-role="content">
   <div role="main">
    <ul data-role="listview">
-     <li data-role="list-divider" {if $fields[0].host_state == 1}style="color:red;"{/if}>{$fields[0].host_name}</li>
-     <li><span style="{if $fields[0].state == 2}color:red;{elseif $fields[0].state == 1}#ffd700;{elseif $fields[0].state =="3"}color: blue;{/if}">{$fields[0].description}</span></li>
-     <li>{$fields[0].plugin_output} </li>
-     <li>PNP: {if $fields[0].pnpgraph_present == 1}yes{else}no{/if}</li>
+     <li data-role="list-divider" {if $fields[0].host_state == 1}style="color:red;"{/if}>Host: {$fields[0].host_name}</li>
+     <li><h2>Service description:</h2><p style="{if $fields[0].state == 2}color:red;{elseif $fields[0].state == 1}#ffd700;{elseif $fields[0].state =="3"}color: blue;{/if}">{$fields[0].description}</p></li>
+     <li><h2>Check output:</h2><p>{$fields[0].plugin_output}</p> </li>
+     {if $fields[0].pnpgraph_present == 1}<li><a href="#">PNP Graph</a></li>{/if}
+     
      <li>Next check: {$fields[0].next_check|date_format:"%H:%M %d.%m.%Y"}</li>
      <li>Last check: {$fields[0].last_check|date_format:"%H:%M %d.%m.%Y"}</li>
-     <li>Acknowledged: {if $fields[0].acknowledged == 1}yes{else}no{/if}</li>
+     {if $fields[0].acknowledged == 1}
+       <li data-role="list-divider">Acknowledged:</li>
+        {foreach key=cid item=aus from=$fields[0].comments_with_info}
+         <li><h2>{$aus[1]}:</h2> <p>{$aus[2]}</p></li>
+        {/foreach}
+     {/if}
    </ul>
   </div>
  </div><!-- end content -->
  {include file="overall_footer_div.html"}
 </div><!-- end page -->
-
 {include file="overall_footer.html"}

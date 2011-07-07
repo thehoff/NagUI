@@ -25,7 +25,6 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 
-
   $sockets = array(
   #First socket
       array("path" => "127.0.0.1", #unix://path or IP Address to Livestatus socket

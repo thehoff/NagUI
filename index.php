@@ -32,8 +32,6 @@ $host_query = "GET hosts\nStats: state >= 0\nStats: state > 0\nStats: scheduled_
 $service_query = "GET services\nStats: state >= 0\nStats: state > 0\nStats: scheduled_downtime_depth = 0\nStats: host_scheduled_downtime_depth = 0\nStats: host_state = 0\nStatsAnd: 4\nStats: state > 0\nStats: scheduled_downtime_depth = 0\nStats: host_scheduled_downtime_depth = 0\nStats: acknowledged = 0\nStats: host_state = 0\nStatsAnd: 5\n";
 
 
-
-
 $livestatus = new livestatus($sockets);
 
 $erg_hosts = $livestatus->query($host_query);
@@ -45,10 +43,10 @@ $array['host_unhandeld'] = 0;
 
 foreach($erg_hosts AS $lines)
 {
-  $entries = explode(";",$lines);
-  $array['host_total']     = $array['host_total'] + $entries[0];
-  $array['host_down']      = $array['host_down'] + $entries[1];
-  $array['host_unhandeld'] = $array['host_unhandeld'] + $entries[2];
+  
+  $array['host_total']     = $array['host_total'] + $lines[0];
+  $array['host_down']      = $array['host_down'] + $lines[1];
+  $array['host_unhandeld'] = $array['host_unhandeld'] + $lines[2];
 }
 
 
@@ -60,9 +58,9 @@ $array['service_unhandeld'] = 0;
 foreach($erg_services AS $lines)
 {
   $entries = explode(";",$lines);
-  $array['service_total']     = $array['service_total'] + $entries[0];
-  $array['service_crit']      = $array['service_crit'] + $entries[1];
-  $array['service_unhandeld'] = $array['service_unhandeld'] + $entries[2];
+  $array['service_total']     = $array['service_total'] + $lines[0];
+  $array['service_crit']      = $array['service_crit'] + $lines[1];
+  $array['service_unhandeld'] = $array['service_unhandeld'] + $lines[2];
 }
 
 $smarty->assign($array);

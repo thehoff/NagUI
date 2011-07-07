@@ -26,16 +26,13 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : "host_name host_state description plugin_output state pnpgraph_present next_check last_check acknowledged comments_with_info" ;
-
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(" ",$columns);
+$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_service) ;
+$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_service);
 
 $host_name    = $_GET['host_name'];
 $service_name = $_GET['service_name'];
 
-$query = "GET services\nColumns: $columns\nFilter: host_name = $host_name\nFilter: description = $service_name\nAnd: 2";
-
-
+$query = "GET services\nColumns: $columns\nFilter: host_name = $host_name\nFilter: description = $service_name\nAnd: 2\n";
 
 $erg = $livestatus->query($query);
 

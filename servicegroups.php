@@ -25,11 +25,11 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : "name alias" ;
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : array("name","alias");
+
+$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_servicegroups) ;
+$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_servicegroups);
 
 $query = "GET servicegroups\nColumns: $columns\n";
-
 
 $erg = $livestatus->query($query);
 

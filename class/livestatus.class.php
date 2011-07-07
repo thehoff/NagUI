@@ -52,23 +52,22 @@ class livestatus
    
    public function query($query)
    {
-      $return = "";
+      $return = array();
 
       foreach($this->sockets AS $entries)
       {
         $open_sockets[$entries['path']] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
-        $return .= $this->queryDo($open_sockets[$entries['path']],$query,$entries['auth']);
+        $return = array_merge($return, json_decode($this->queryDo($open_sockets[$entries['path']],$query,$entries['auth']),True));
       }
       
-      //remove last newline
-       $return = substr($return,0, -1);
-      return explode("\n",$return);
+      
+      return $return;
    }
     
    private function queryDo($socket,$query,$auth) 
    {
      $query  .= ($auth === TRUE) ? "AuthUser: $this->auth_user\n" :"";   
-     $query  .= "ColumnHeaders:off\nOutputFormat:csv\nKeepAlive: on\nResponseHeader: fixed16\n\n";
+     $query  .= "OutputFormat:json\nKeepAlive: on\nResponseHeader: fixed16\n\n";
      
      if(isset($_GET['debug_show_query']))
      {
@@ -84,7 +83,7 @@ class livestatus
        return $read;
      }
      //empty string
-     return "";
+     return array();
     }
     
     /**
@@ -113,16 +112,13 @@ class livestatus
        foreach($input AS $index => $value)
        {
          $sub = array();
-         foreach(explode(";",$value) AS $id=>$val)
+         foreach($value AS $id=>$val)
          {
            $sub[$colum_array[$id]] =  $val;
          }
          $input[$index] = $sub;
        }
-      
       return $input;
      }
-
-    
     
 }

@@ -26,8 +26,8 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : "name alias" ;
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : array("name","alias");
+$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_hostgroups) ;
+$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_hostgroups);
 
 $query = "GET hostgroups\nColumns: $columns\n";
 

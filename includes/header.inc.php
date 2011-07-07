@@ -25,7 +25,11 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 
-require("config.php");
+if(!include("config.php"))
+{
+  die("Please create config.php file. Sample config in config.dist.php is provieded");
+};
+require("./templates/$template/defaults.php");
 require('./ext/smarty/Smarty.class.php');
 require("./class/livestatus.class.php");
 

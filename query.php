@@ -29,7 +29,7 @@ require("./includes/header.inc.php");
 
 if(isset($_GET['query']))
 {
-  $smarty->assign('output', var_export($livestatus->query($_GET['query']),True));
+  $smarty->assign('output', var_export($livestatus->query($_GET['query']."\n"),True));
 }else{
   $smarty->assign('output', "No query");
 }
