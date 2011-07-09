@@ -34,6 +34,8 @@ require('./ext/smarty/Smarty.class.php');
 require("./class/livestatus.class.php");
 
 
+$template = (isset($_GET['template'])) ? $_GET['template'] : $template;
+
 $smarty = new Smarty;
 $smarty->template_dir = "./templates/$template/";
 $smarty->compile_dir  = "./templates/$template/cache/";

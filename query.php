@@ -26,10 +26,14 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
+$smarty->template_dir = "./templates/intern/";
+$smarty->compile_dir  = "./templates/intern/cache/";
 
-if(isset($_GET['query']))
+if(isset($_GET['query'])) 
 {
-  $smarty->assign('output', var_export($livestatus->query($_GET['query']."\n"),True));
+  $erg    = $livestatus->query(chop($_GET['query'])."\n");
+  $output = $livestatus->renderOutput($erg);
+  $smarty->assign('output', var_export($output,True));
 }else{
   $smarty->assign('output', "No query");
 }
