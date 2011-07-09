@@ -54,16 +54,30 @@ class livestatus
    {
       $return = array();
 
-      foreach($this->sockets AS $entries)
+      foreach($this->sockets AS $sitename => $entries)
       {
-        $open_sockets[$entries['path']] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
-        $return = array_merge($return, json_decode($this->queryDo($open_sockets[$entries['path']],$query,$entries['auth']),True));
+        $this->open_sockets[$sitename] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
+        
+        $array_return = json_decode($this->queryDo($this->open_sockets[$sitename],$query,$entries['auth']));
+        foreach($array_return AS $index => $wert)
+        {
+          $array_return[$index][] = $sitename;
+        }
+        $return = array_merge($return,$array_return);
       }
       
       
       return $return;
    }
     
+   /**
+   * Function queryDo
+   *
+   * Executs the query on each socket and returns the output as JSON
+   * @param $socket object Socket Object
+   * @param $query string Query for Livestatus
+   * @param $auth bool Use AuthUser or not
+   */
    private function queryDo($socket,$query,$auth) 
    {
      $query  .= ($auth === TRUE) ? "AuthUser: $this->auth_user\n" :"";   
@@ -83,7 +97,7 @@ class livestatus
        return $read;
      }
      //empty string
-     return array();
+     return "[]";
     }
     
     /**
@@ -109,6 +123,7 @@ class livestatus
      
      public function renderOutput($input,$colum_array)
      {
+       $colum_array[count($colum_array)+1] = "sitename";
        foreach($input AS $index => $value)
        {
          $sub = array();

@@ -25,20 +25,17 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 
-  $sockets = array(
-  #First socket
-      array("path" => "127.0.0.1", #unix://path or IP Address to Livestatus socket
-            "port" => "6557", #Null if local Socket else Port number for socket
-            "timeout" => "5", #Connect Timeout
-            "auth"    => FALSE, #If TRUE use authorization else FALSE
-            ),
 
-#      array("path" => "127.0.0.1", 
-#            "port" => "6558",
-#            "timeout" => "5",
-#            "auth"    => FALSE,
-#            ),
-  );
+  $sockets['site1']['path'] = "127.0.0.1"; #unix://path or IP Address to Livestatus socket
+  $sockets['site1']['port'] = "6557"; #Null if local Socket else Port number for socket
+  $sockets['site1']['timeout'] = "5" ; #Connect Timeout
+  $sockets['site1']['auth'] = False; #If TRUE use authorization else FALSE
+  
+  
+//   $sockets['site_name2']['path'] = "127.0.0.1";
+//   $sockets['site_name2']['port'] = "6557"; 
+//   $sockets['site_name2']['timeout'] = "5" ;
+//   $sockets['site_name2']['auth'] = False;
 
   //Default Template
   $template = "mobile";
