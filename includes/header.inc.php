@@ -27,7 +27,7 @@
 
 if(!include("config.php"))
 {
-  die("Please create config.php file. Sample config in config.dist.php is provieded");
+  die("Please create config.php file. You can find am sample in config.dist.php");
 };
 require("./templates/$template/defaults.php");
 require('./ext/smarty/Smarty.class.php');
