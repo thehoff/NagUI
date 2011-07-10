@@ -51,6 +51,7 @@ class output
   
   public function smartyDirect($data,$template_file)
   {
+    global $cfg;
     require_once('./ext/smarty/Smarty.class.php');
     $smarty = new Smarty;
     $smarty->template_dir = "./templates/$this->template/";
