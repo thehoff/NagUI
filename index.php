@@ -31,6 +31,7 @@ $host_query = "GET hosts\nStats: state >= 0\nStats: state > 0\nStats: scheduled_
 
 $service_query = "GET services\nStats: state >= 0\nStats: state > 0\nStats: scheduled_downtime_depth = 0\nStats: host_scheduled_downtime_depth = 0\nStats: host_state = 0\nStatsAnd: 4\nStats: state > 0\nStats: scheduled_downtime_depth = 0\nStats: host_scheduled_downtime_depth = 0\nStats: acknowledged = 0\nStats: host_state = 0\nStatsAnd: 5\n";
 
+$output_format = (isset($_GET['output_format'])) ? $_GET['output_format'] : $output_format;
 
 $livestatus = new livestatus($sockets);
 
@@ -62,7 +63,11 @@ foreach($erg_services AS $lines)
   $array['service_unhandeld'] = $array['service_unhandeld'] + $lines[2];
 }
 
-$smarty->assign($array);
 
-$smarty->display('index.html');
-
+if($output_format == "smarty")
+{
+   $output->smartyDirect($array,"index.html");
+}elseif($output_format == "json")
+{
+   $output->json($array,FALSE);
+}

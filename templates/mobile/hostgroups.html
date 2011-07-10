@@ -10,7 +10,7 @@
 
     <ul data-role="listview" data-filter="true" data-theme="g">
      {foreach key=cid item=aus from=$fields}
-     <li><a href="hostlist.php?filter_host_groups={$aus.name}">{$aus.alias}</a></li>
+     <li><a href="hosts.php?filter_host_groups={$aus.name}">{$aus.alias}</a></li>
     {/foreach}
    </ul>
   </div>

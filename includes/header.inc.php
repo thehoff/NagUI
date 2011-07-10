@@ -29,19 +29,13 @@ if(!include("config.php"))
 {
   die("Please create config.php file. You can find am sample in config.dist.php");
 };
-require("./templates/$template/defaults.php");
-require('./ext/smarty/Smarty.class.php');
-require("./class/livestatus.class.php");
 
+
+require("./class/livestatus.class.php");
+require("./class/output.class.php");
 
 $template = (isset($_GET['template'])) ? $_GET['template'] : $template;
+require("./templates/$template/defaults.php");
 
-$smarty = new Smarty;
-$smarty->template_dir = "./templates/$template/";
-$smarty->compile_dir  = "./templates/$template/cache/";
-$smarty->caching  = false;
-
-$smarty->assign('logged_in_user', $cfg['env_user']);
-
-$livestatus = new livestatus($sockets);
-
+$livestatus     = new livestatus($sockets);
+$output         = new output($template);

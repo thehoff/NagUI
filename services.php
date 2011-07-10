@@ -26,9 +26,9 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_services) ;
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_services);
-
+$columns       = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_services) ;
+$columns_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_services);
+$output_format = (isset($_GET['output_format'])) ? $_GET['output_format'] : $output_format;
 $query = "GET services\nColumns: $columns\n";
 
 $stats = "";
@@ -94,8 +94,12 @@ if($status_count != 0)
 }
 
 
+$erg = $livestatus->query($query);
 
-$erg_hosts = $livestatus->query($query);
-
-$smarty->assign('fields', $livestatus->renderOutput($erg_hosts,$colum_array));
-$smarty->display('services.html');
+if($output_format == "smarty")
+{
+   $output->smarty($erg,$columns_array,"services.html");
+}elseif($output_format == "json")
+{
+   $output->json($erg,$columns_array);
+}

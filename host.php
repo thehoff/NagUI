@@ -26,14 +26,20 @@
 # Boston, MA 02110-1301 USA.
 
 require("./includes/header.inc.php");
-$columns = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_host) ;
-$colum_array = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_host);
+$columns       = (isset($_GET['columns'])) ? str_replace(","," ",$_GET['columns']) : str_replace(","," ",$fields_host) ;
+$columns_array   = (isset($_GET['columns'])) ? explode(',',$_GET['columns']) : explode(',',$fields_host);
+$output_format = (isset($_GET['output_format'])) ? $_GET['output_format'] : $output_format;
 
 $host_name    = $_GET['host_name'];
-
 $query = "GET hosts\nColumns: $columns\nFilter: host_name = $host_name\n";
 
 $erg = $livestatus->query($query);
 
-$smarty->assign('fields', $livestatus->renderOutput($erg,$colum_array));
-$smarty->display('host.html');
+
+if($output_format == "smarty")
+{
+   $output->smarty($erg,$columns_array,"host.html");
+}elseif($output_format == "json")
+{
+   $output->json($erg,$columns_array);
+}

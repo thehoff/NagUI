@@ -120,20 +120,5 @@ class livestatus
        }
        return $socketData;
      }
-     
-     public function renderOutput($input,$colum_array)
-     {
-       $colum_array[count($colum_array)+1] = "sitename";
-       foreach($input AS $index => $value)
-       {
-         $sub = array();
-         foreach($value AS $id=>$val)
-         {
-           $sub[$colum_array[$id]] =  $val;
-         }
-         $input[$index] = $sub;
-       }
-      return $input;
-     }
     
 }
