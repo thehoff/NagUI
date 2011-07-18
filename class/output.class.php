@@ -36,20 +36,21 @@ class output
   
   public function smarty($data,$columns,$template_file)
   {
-    global $cfg;
-    require_once('./ext/smarty/Smarty.class.php');
-    $smarty = new Smarty;
-    $smarty->template_dir = "./templates/$this->template/";
-    $smarty->compile_dir  = "./templates/$this->template/cache/";
-    $smarty->caching  = false;
-    $smarty->assign('logged_in_user', $cfg['env_user']);
+     $smarty = $this->smarty_header();
+     $smarty->assign('fields', $this->renderOutput($data,$columns));
+     $smarty->display($template_file);
+  }
+  
+  public function smartyDirect($data,$template_file)
+  {
 
-    $smarty->assign('fields', $this->renderOutput($data,$columns));
+    $smarty = $this->smarty_header();
+    $smarty->assign($data);
     $smarty->display($template_file);
   
   }
   
-  public function smartyDirect($data,$template_file)
+  private function smarty_header()
   {
     global $cfg;
     require_once('./ext/smarty/Smarty.class.php');
@@ -58,12 +59,11 @@ class output
     $smarty->compile_dir  = "./templates/$this->template/cache/";
     $smarty->caching  = false;
     $smarty->assign('logged_in_user', $cfg['env_user']);
-
-    $smarty->assign($data);
-    $smarty->display($template_file);
+    $smarty->assign('plugins', $cfg['plugins']);
+    
+    return $smarty;
   
   }
-  
   
   public function json($data,$columns)
   {
