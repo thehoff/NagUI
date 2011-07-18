@@ -39,7 +39,7 @@ $erg_hosts = $livestatus->query($host_query);
 
 $array['host_total']     = 0;
 $array['host_down']      = 0;
-$array['host_unhandeld'] = 0;
+$array['host_unhandled'] = 0;
 
 
 foreach($erg_hosts AS $lines)
@@ -47,22 +47,21 @@ foreach($erg_hosts AS $lines)
   
   $array['host_total']     = $array['host_total'] + $lines[0];
   $array['host_down']      = $array['host_down'] + $lines[1];
-  $array['host_unhandeld'] = $array['host_unhandeld'] + $lines[2];
+  $array['host_unhandled'] = $array['host_unhandled'] + $lines[2];
 }
 
 
 $erg_services = $livestatus->query($service_query);
 $array['service_total']     = 0;
 $array['service_crit']      = 0;
-$array['service_unhandeld'] = 0;
+$array['service_unhandled'] = 0;
 
 foreach($erg_services AS $lines)
 {
   $array['service_total']     = $array['service_total'] + $lines[0];
   $array['service_crit']      = $array['service_crit'] + $lines[1];
-  $array['service_unhandeld'] = $array['service_unhandeld'] + $lines[2];
+  $array['service_unhandled'] = $array['service_unhandled'] + $lines[2];
 }
-
 
 if($output_format == "smarty")
 {

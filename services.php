@@ -75,7 +75,7 @@ foreach($_GET AS $index => $wert)
       $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nFilter: host_scheduled_downtime_depth = 0\nStats: host_state = 0\nAnd: 4\n";
      break;
      
-     case "filter_state_unhandeld":
+     case "filter_state_unhandled":
       $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nFilter: host_scheduled_downtime_depth = 0\nFilter: acknowledged = 0\nFilter: host_state = 0\nAnd: 5\n";
      break;
      
@@ -98,7 +98,8 @@ $erg = $livestatus->query($query);
 
 if($output_format == "smarty")
 {
-   $output->smarty($erg,$columns_array,"services.html");
+   $template = (isset($_GET['tpl_file'])) ? $_GET['tpl_file'] : "services.html";
+   $output->smarty($erg,$columns_array,$template);
 }elseif($output_format == "json")
 {
    $output->json($erg,$columns_array);

@@ -35,7 +35,6 @@ $query = "GET hosts\nColumns: $columns\nFilter: host_name = $host_name\n";
 
 $erg = $livestatus->query($query);
 
-
 if($output_format == "smarty")
 {
    $output->smarty($erg,$columns_array,"host.html");

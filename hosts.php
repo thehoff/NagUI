@@ -62,16 +62,16 @@ foreach($_GET AS $index => $wert)
       $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nAnd: 2\n";
      break;
      
-     case "filter_state_unhandeld":
+     case "filter_state_unhandled":
       $query .= "Filter: state > 0\nFilter: scheduled_downtime_depth = 0\nFilter: acknowledged = 0\nAnd: 3";
      break;
      
      case "filter_host_groups":
       $query .= "Filter: host_groups >= $wert\nAnd:1\n";
      break;
+     
   }
 }
-
 
 //Status Filter setzen 
 if($status_count != 0)
@@ -83,7 +83,8 @@ $erg  = $livestatus->query($query);
 
 if($output_format == "smarty")
 {
-   $output->smarty($erg,$columns_array,"hosts.html");
+  $template = (isset($_GET['tpl_file'])) ? $_GET['tpl_file'] : "hosts.html";
+  $output->smarty($erg,$columns_array,$template);
 }elseif($output_format == "json")
 {
    $output->json($erg,$columns_array);
