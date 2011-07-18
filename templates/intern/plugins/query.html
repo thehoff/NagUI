@@ -1,0 +1,30 @@
+{include file="overall_header.html"}
+			<div id="section-navigation">
+				<ul>
+					<li><a class="tables" href="#">hosts</a></li>
+					<li><a class="tables" href="#">services</a></li>
+					<li><a class="tables" href="#">hostgroups</a></li>
+					<li><a class="tables" href="#">servicegroups</a></li>
+					<li><a class="tables" href="#">servicesbyhostgroup</a></li>
+					<li><a class="tables" href="#">hostsbygroup</a></li>
+					<li><a class="tables" href="#">contacts</a></li>
+					<li><a class="tables" href="#">commands</a></li>
+					<li><a class="tables" href="#">timeperiods</a></li>
+					<li><a class="tables" href="#">downtimes</a></li>
+					<li><a class="tables" href="#">comments</a></li>
+				</ul>
+			</div>
+			
+<div id="content">
+			  <form id="query_form" method="GET">
+			    <textarea id="query" name="query" style="width: 100%;"></textarea> <br />
+			    <input name="name" type="hidden" value="query">
+			    <input name="output_format" type="hidden" value="json" />
+			    <input name="var_dump" type="hidden" value="true" />
+			    <input type="submit" value="Send query to server">
+			  </form>
+			    <hr>
+			    <div id="query_output">No query</div>
+</div>
+
+{include file="overall_footer.html"}
