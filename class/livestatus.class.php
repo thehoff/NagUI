@@ -59,14 +59,26 @@ class livestatus
         $this->open_sockets[$sitename] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
         
         $array_return = json_decode($this->queryDo($this->open_sockets[$sitename],$query,$entries['auth']));
-        foreach($array_return AS $index => $wert)
+        if(is_array($array_return))
         {
-          $array_return[$index][] = $sitename;
-        }
+         foreach($array_return AS $index => $wert)
+         {
+           $array_return[$index][] = $sitename;
+         }
+        }elseif($array_return === NULL)
+        {
+           //If empty returnvalue form query
+           $array_return = array();
+        }else
+        {
+          //Workarround if only one item is returnt from socket
+           $tmp = explode(";",$array_return);
+           $array_return = array($tmp);
+           unset($tmp);
+        }   
         $return = array_merge($return,$array_return);
       }
-      
-      
+
       return $return;
    }
     
