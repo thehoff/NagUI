@@ -38,7 +38,10 @@
 //   $sockets['site_name2']['auth'] = False;
 
   //Default Template
-  $template = "mobile";
+  $template = "intern";
+  
+  //Foreach active Plugin:  $cfg['plugins']['PLUGINNAME'] = "Nav Name";
+  $cfg['plugins']['query'] = "Query Browser";
   
   //IF using auth, Source for username. Normaly $_SERVER["REMOTE_USER"]
   $cfg['env_user']  = $_SERVER["REMOTE_USER"];
