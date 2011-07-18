@@ -1,0 +1,28 @@
+  <table>
+   <thead>
+    <tr>
+      <th></th>
+      <th>Hostname</th>
+      <th>Status</th>
+      <th>OK</th>
+      <th>Wa</th>
+      <th>Cr</th>
+      <th>Un</th>
+      <th>Pd</th>
+    </tr>
+   </thead>
+     {foreach key=cid item=aus from=$fields}
+     <tr>
+        <td class="host_td_status_{$aus.state}"></td>
+       <td>
+         <a href="./services.php?filter_host_name={$aus.host_name}">{$aus.host_name}</a>
+       </td>
+       <td>{$aus.plugin_output}</td>
+       <td class="service_td_status_0">{$aus.num_services_hard_ok}</td>
+       <td class="service_td_status_1">{$aus.num_services_hard_warn}</td>
+       <td class="service_td_status_2">{$aus.num_services_hard_crit}</td>
+       <td class="service_td_status_3">{$aus.num_services_hard_unknown}</td>
+       <td class="service_td_status_4">{$aus.num_services_pending}</td>
+     </tr>
+    {/foreach}
+   </table>

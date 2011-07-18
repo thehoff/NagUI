@@ -1,0 +1,45 @@
+{include file="overall_header.html"}
+<div id="section-navigation">
+
+</div>
+			
+<div id="content">
+ <form id="autorefresh_form" style="display:none">
+   <input type="text" id="autorefresh_url" name="url" value="./hosts.php">
+   <input type="text" name="tpl_file" value="entries/hosts.html">
+   {foreach key=index item=value from=$smarty.get}
+     <input type="text" name="{$index}" value="{$value}">
+   {/foreach}
+ </form>
+  <div id="autorefresh_field">
+   {include file="entries/hosts.html"}
+  </div>
+
+</div>
+
+<div id="aside">
+   <form class="filter" method="get" action="hosts.php">
+   <fieldset>
+     <legend>Filter</legend>
+        <label for="filter_hostname" >Hostname:</label>
+        <input class="input_txt"  type="text" value="" name="filter_hostname">
+  
+       <fieldset>
+        <legend>Host states:</legend>
+
+         <input id="filter_state_up" type="checkbox" name="filter_state_up">
+         <label for="filter_state_up" data-theme="c">Up</label>
+         
+         <input id="filter_state_down" type="checkbox" name="filter_state_down">
+         <label for="filter_state_down" data-theme="c">Down</label>
+         
+         <input id="filter_state_unreach" type="checkbox" name="filter_state_unreach">
+         <label for="filter_state_unreach" data-theme="c">Unreach</label>        
+
+       </fieldset>
+       <input type="submit" value="Search" />
+      </fieldset>
+
+    </form>		
+</div>
+{include file="overall_footer.html"}

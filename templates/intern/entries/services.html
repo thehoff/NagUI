@@ -1,0 +1,41 @@
+{$last_host = ""}
+ {foreach key=cid item=aus from=$fields}
+ {if $aus.host_name != $last_host}
+ {if $last_host != ""}</table><br />{/if}
+ <a class="host_status_{$aus.host_state}" href="./services.php?filter_host_name={$aus.host_name}">{$aus.host_name}</a>
+  <table>
+    <thead>
+     <tr>
+      <th>
+      </th>
+      <th style="width: 30%">
+        Description
+     </th>
+     
+     <th>
+        Plugin Output
+     </th>
+     <th>Next Check</th>
+     <th>Age</th>
+    </tr>
+   </thead>
+   {$last_host = $aus.host_name}
+  {/if}
+  <tr>
+    <td class="service_td_status_{$aus.state}"></td>
+    <td>{$aus.description}</td>
+    
+    <td>{$aus.plugin_output}</td>
+    <td>
+        {if $aus.next_check != 0}
+         {if $aus.next_check-time() >= 900}
+          {$aus.next_check|date_format:"%H:%M %d.%m.%Y"}
+         {else}
+           {round(($aus.next_check-time())/60,1)} m
+          {/if}
+         {/if}</td>
+    <td>{if time()-$aus.last_hard_state_change >= 900}{$aus.last_hard_state_change|date_format:"%H:%M %d.%m.%Y"}{else}{(time()-$aus.last_hard_state_change)/60|round:0} min{/if}</td>
+  </tr>
+       
+  {/foreach}
+  </table><br />

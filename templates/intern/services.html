@@ -1,0 +1,64 @@
+{include file="overall_header.html"}
+<div id="section-navigation">
+
+</div>
+			
+<div id="content">
+ <form id="autorefresh_form" style="display:none">
+   <input type="text" id="autorefresh_url" name="url" value="./services.php">
+   <input type="text" name="tpl_file" value="entries/services.html">
+   {foreach key=index item=value from=$smarty.get}
+     <input type="text" name="{$index}" value="{$value}">
+   {/foreach}
+ </form>
+  <div id="autorefresh_field">
+    {include file="entries/services.html"}
+  </div>
+</div>
+
+<div id="aside">
+
+    <form class="filter" method="get" action="./services.php">
+    <fieldset>
+     <legend>Filter:</legend>
+
+        <label for="filter_host_name">Hostname:</label>
+        <input class="input_txt" type="text" value="" name="filter_host_name">
+
+        <label for="filter_service">Service:</label>
+        <input class="input_txt" type="text" value="" name="filter_service">
+      
+      <fieldset>
+        <legend>States:</legend>
+         <input type="checkbox" name="filter_state_ok">
+         <label for="filter_state_ok">Ok</label>
+         
+         <input type="checkbox" name="filter_state_warn">
+         <label for="filter_state_warn">Warning</label>
+         
+         <br />
+         
+         <input type="checkbox" name="filter_state_crit">
+         <label for="filter_state_crit">Critical</label>    
+         
+         <input type="checkbox" name="filter_state_unk">
+         <label for="filter_state_unk">Unknown</label>   
+        </fieldset>
+      
+      <fieldset>
+        <legend>Acknowledged:</legend>
+        <input type="radio" value="1" name="filter_acknowledged">
+        <label for="filter_acknowledged">Yes</label>
+        
+        <input type="radio" value="0" name="filter_acknowledged">
+        <label for="filter_notacknowledged">No</label>
+        
+        <input type="radio" value="no" checked="checked" name="filter_acknowledged">
+        <label for="dummy1">Ignore</label>
+      </fieldset>
+      
+      <button data-theme="a" type="submit">Search</button>
+    </fieldset>
+    </form>	
+</div>
+{include file="overall_footer.html"}
