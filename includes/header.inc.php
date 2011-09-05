@@ -27,7 +27,7 @@
 
 if(!include("config.php"))
 {
-  die("Please create config.php file. You can find am sample in config.dist.php");
+  die("Please create config.php file. You can find an sample in config.dist.php");
 };
 
 

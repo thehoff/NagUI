@@ -80,7 +80,7 @@ class output
     }
   }
    
-  private function renderOutput($input,$columns)
+  public function renderOutput($input,$columns)
   {
     $columns[] = "sitename";
     foreach($input AS $index => $value)

@@ -43,5 +43,22 @@
   //Foreach active Plugin:  $cfg['plugins']['PLUGINNAME'] = "Nav Name";
   $cfg['plugins']['query'] = "Query Browser";
   
+   # Not finished yet: Reporting Plugin
+//   $cfg['plugins']['report'] = "Reporting";
+//   
+//   $cfg_reporting["db_host"] = "localhost";
+//   $cfg_reporting["db_user"] = "user";
+//   $cfg_reporting["db_pass"] = "pass";
+//   
+//   $cfg_reporting_dbs["db_1"]['name'] = "Kunde 1";
+//   $cfg_reporting_dbs["db_1"]['database'] = "nagios_digger";
+//   $cfg_reporting_dbs["db_1"]['table'] = "log1";
+//   
+//   $cfg_reporting_dbs["db_2"]['name'] = "Kunde 2";
+//   $cfg_reporting_dbs["db_2"]['database'] = "nagios_digger";
+//   $cfg_reporting_dbs["db_2"]['table'] = "log2";
+  
+  
+  
   //IF using auth, Source for username. Normaly $_SERVER["REMOTE_USER"]
   $cfg['env_user']  = $_SERVER["REMOTE_USER"];

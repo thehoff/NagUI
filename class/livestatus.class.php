@@ -78,7 +78,6 @@ class livestatus
         }   
         $return = array_merge($return,$array_return);
       }
-
       return $return;
    }
     

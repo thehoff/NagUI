@@ -1,0 +1,110 @@
+{include file="overall_header.html"}
+ <form method="GET">
+  <input type="hidden" name="name" value="report">
+  <input type="hidden" name="source_type" value="db">
+  Source select: <select name="source">
+  {foreach item=wert from=$db_sources}
+   <option value="{$wert@key}">{$wert.name}</option>
+  {/foreach}
+  </select>
+  <input type="submit" value="go">
+ </form>
+ 
+<h1>Statistik nach {$what|ucfirst}</h1>
+ <form method="GET">
+ <input type="hidden" name="name" value="report">
+ <input type="hidden" name="source_type" value="{$source_type}">
+ <input type="hidden" name="source" value="{$source}">
+ 
+ 
+ <table class="option_table">
+  <tr>
+   <td>
+    Gruppierung: 
+    <select name="was">
+    {if $what == "host"}
+      <option value="host">Host</option>
+      <option value="service">Service</option>
+    {else}
+      <option value="service">Service</option>
+      <option value="host">Host</option>
+    {/if}
+    </select>
+    <input type="checkbox" name="soft_stats" value="1" {$soft_stats}> Soft zeigen
+    <input type="checkbox" name="warnings" value="1" {$warning_stats}> Warnings zeigen
+   </td>
+   <td>
+    Zeitraum:
+     <select name="jahr">
+      {foreach item=wert from=$jahre}
+      <option value="{$wert}">{$wert}</option>
+      {/foreach}
+     </selct> 
+     <input type="submit" name="nach_Jahr" value="Jahr">
+    <b>ODER<b>
+     <select name="last">
+      <option value="24hours">24 Stunden</option>
+      <option value="lastyear">Jahr</option>
+      <option value="last6months">6 Monate</option>
+      <option value="lastmonth">31 Tage</option>
+      <option value="last2weeks">14 Tage</option>
+      <option value="lastweek">7 Tage</option>
+     </select>
+     <input type="submit" name="Zeitraum" value="Zeitraum">
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <u>
+     {if isset($nach_jahr)}
+       Angezeigt wird {$nach_jahr}
+     {elseif isset($nach_zeitraum)}
+       {if $nach_zeitraum == 'lastyear'}
+         Angezeigt werden die letzten 12 Monate
+       {elseif $nach_zeitraum == 'last6months'}
+          Angezeigt werden die letzten 6 Monate
+       {elseif $nach_zeitraum == 'lastmonth'}   
+          Angezeigt werden die letzten 31 Tage
+       {elseif $nach_zeitraum == 'last2weeks'}
+          Angezeigt werden die letzten 2 Wochen
+       {elseif $nach_zeitraum == 'lastweek'} 
+          Angezeigt werden die letzten 7 Tage
+       {elseif $nach_zeitraum == '24hours'}   
+         Angezeigt werden die letzten 24 Stunden
+       {/if}
+     {else}
+       Angezeigt werden die letzten 24 Stunden
+     {/if}
+    </u>
+   </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+    <table class="default_result">
+     <tr>
+      <th>{$what|ucfirst}</th>
+      <th>Fehler</th>
+      <th>Erster Fehler</th>
+      <th>Letzter Fehler</th>
+      <th></th>
+      <th></th>
+      <th></th>
+     </tr>
+     
+     {foreach item=wert from=$eintraege}
+      <tr {$wert.color}>
+	   <td>{$wert.$what}</td>
+	   <td>{$wert.n_events} </td>
+	   <td>{$wert.first}</td>
+	   <td>{$wert.last}</td>
+	   <td>{$wert.percentage|round:2}%</td>
+	   <td><a href="#"><img src="./templates/default/img/info.png" title="Details"></a></td>
+	   <td><a href="#"><img src="./templates/default/img/uhr.png" title="Zeiten"></a></td>
+       </tr>
+      {/foreach}  
+     </table>
+ </td></tr>
+</table>
+</form>
+
+{include file="overall_footer.html"}

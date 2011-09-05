@@ -9,7 +9,7 @@
 #header
 {
 	background: #ccc;
-	padding: 20px;
+	padding: 10px;
 }
 
 #header h1 { margin: 0; }
@@ -215,12 +215,12 @@ tbody tr.odd
 
 tbody tr:hover td
 {
-  background-color: #dcdcdc;
+
 }
 
 tbody tr:hover td,tbody tr:hover th, tbody tr:hover a
 {
-	color: #fff !important;
+
 }
 
 
