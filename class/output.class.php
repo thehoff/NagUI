@@ -59,6 +59,11 @@ class output
     $smarty->compile_dir  = "./templates/$this->template/cache/";
     $smarty->caching  = false;
     $smarty->assign('logged_in_user', $cfg['env_user']);
+    if(!isset($cfg['template'][$this->template]))
+    {
+       $cfg['template'][$this->template] = False;
+    }
+    $smarty->assign('template_cfg', $cfg['template'][$this->template]);
     $smarty->assign('plugins', $cfg['plugins']);
     
     return $smarty;

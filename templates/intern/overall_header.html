@@ -11,23 +11,29 @@
  <body>
  <div id="container">
 	<div id="header">
-         <img src="templates/intern/logo_100.png">
+         <a href="./"><img src="templates/intern/logo_100.png"></a>
 	</div>
 	<div id="navigation">
+	        {if $template_cfg['toolbar'] == True}<div id="toolbar_enable"></div>{/if}
 		<ul>
+		        {if $template_cfg['toolbar'] == True}
 			<li><a id="nav_host_total" href="./hosts.php">Hosts: nnn</a></li>
 			<li><a id="nav_host_down" href="./hosts.php?filter_state_total=1" title="Total Host Problems">nn</a></li>
 			<li><a id="nav_host_unhandeld" href="./hosts.php?filter_state_unhandled=1" title="Unhandeld Host Problems">nn</a></li>
 			<li><a id="nav_service_total" href="./services.php">Services: nnn</a></li>
                         <li><a id="nav_service_crit" href="./services.php?filter_state_total=1" title="Total Service Problems">nn</a></li>
 			<li><a id="nav_service_unhandeld" href="./services.php?filter_state_unhandled=1" title="Unhandeld Service Problems">nn</a></li>
+		        {/if}
+			
+			
+			
 			{if isset($plugins)}
-			<li><a href="#">Plugins:</a> </li>
 			 {foreach key=cid item=aus from=$plugins}
 			   <li><a href="./plugin.php?name={$cid}">{$aus}</a></li>
 			 {/foreach}
 			{/if} 
 		</ul>
+		
 	</div>
 	<div id="content-container1">
 		<div id="content-container2">

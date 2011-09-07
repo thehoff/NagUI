@@ -40,6 +40,9 @@
   //Default Template
   $template = "intern";
   
+  //Template sepzific settings
+  $cfg['template']["intern"]["toolbar"] = False; #Pre Alpha yet
+  
   //Foreach active Plugin:  $cfg['plugins']['PLUGINNAME'] = "Nav Name";
   $cfg['plugins']['query'] = "Query Browser";
   
