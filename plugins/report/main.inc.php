@@ -7,7 +7,7 @@
  $assign = array();
 require('header.inc.php');
 
- $assign["db_sources"] = $cfg_reporting_dbs;
+ $assign["db_sources"] = $cfg["reportdb"];
 
 //Wird mit Hosts oder Services gearbeitet
  $assign['what'] = (isset($_GET['was'])) ? $_GET['was'] : "host";
@@ -69,19 +69,20 @@ if(isset($_GET['nach_Jahr']))
 //   echo "<pre>";
 //   var_dump($entries);
 //   echo "</pre>";
-  if(is_array($entries[0]))
-  {
-      foreach($entries AS $row)
-      {
-        $row['color'] = get_color($row["n_events"], $as_wert["avg"], $as_wert["stddev"]);
-        $eintraege[] = $row;
-      }
-  }else
-  {
-     $entries['color'] = get_color($entries["n_events"], $as_wert["avg"], $as_wert["stddev"]);
-     $eintraege[] = $entries;
-  }
-  
+
+    if(isset($entries[0]) && is_array($entries[0]))
+    {
+        foreach($entries AS $row)
+        {
+          $row['color'] = get_color($row["n_events"], $as_wert["avg"], $as_wert["stddev"]);
+          $eintraege[] = $row;
+        }
+    }else
+    {
+      $entries['color'] = get_color($entries["n_events"], $as_wert["avg"], $as_wert["stddev"]);
+      $eintraege[] = $entries;
+    }
+
  
   
   $assign['eintraege'] = $eintraege;

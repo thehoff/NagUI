@@ -1,0 +1,14 @@
+[report_main]
+db_host = "localhost"
+db_user = "root"
+db_pass = "root"
+
+[reportdb_customer1]
+name = "customer1"
+database = "nagios_digger"
+table = "log"
+
+[reportdb_another]
+name = "Jonny Donny"
+database = "nagios_digger"
+table = "log"

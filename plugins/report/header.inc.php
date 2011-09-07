@@ -17,19 +17,16 @@ require("class/report.class.php");
     
     
     case "db":
-
-        $db_user = "root";
-        $db_pass = "root";
-
+        
        //Datenbank Verbindung
-       $db =  mysql_connect($cfg_reporting["db_host"],$cfg_reporting["db_user"], $cfg_reporting["db_pass"]);
+       $db =  mysql_connect($cfg['report']['main']["db_host"],$cfg['report']['main']["db_user"], $cfg['report']['main']["db_pass"]);
 
-       mysql_select_db($cfg_reporting_dbs[$source]['database'],$db);
+       mysql_select_db($cfg['reportdb'][$source]['database'],$db);
 
        mysql_query("SET NAMES utf8",$db);
        mysql_query("SET CHARACTER SET utf8",$db);
        require("class/db_report.class.php");
-       $report = new db_report($db,$cfg_reporting_dbs[$source]['table']);
+       $report = new db_report($db,$cfg['reportdssssb'][$source]['table']);
      
     break;
     

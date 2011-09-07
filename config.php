@@ -25,43 +25,10 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 
-
-  $sockets['site1']['path'] = "127.0.0.1"; #unix://path or IP Address to Livestatus socket
-  $sockets['site1']['port'] = "6557"; #Null if local Socket else Port number for socket
-  $sockets['site1']['timeout'] = "5" ; #Connect Timeout
-  $sockets['site1']['auth'] = False; #If TRUE use authorization else FALSE
-  
-  
-//   $sockets['site_name2']['path'] = "127.0.0.1";
-//   $sockets['site_name2']['port'] = "6557"; 
-//   $sockets['site_name2']['timeout'] = "5" ;
-//   $sockets['site_name2']['auth'] = False;
-
   //Default Template
   $template = "intern";
-  
-  //Template sepzific settings
-  $cfg['template']["intern"]["toolbar"] = False; #Pre Alpha yet
-  
-  //Foreach active Plugin:  $cfg['plugins']['PLUGINNAME'] = "Nav Name";
-  $cfg['plugins']['query'] = "Query Browser";
-  
-   # Not finished yet: Reporting Plugin
-//   $cfg['plugins']['report'] = "Reporting";
-//   
-//   $cfg_reporting["db_host"] = "localhost";
-//   $cfg_reporting["db_user"] = "user";
-//   $cfg_reporting["db_pass"] = "pass";
-//   
-//   $cfg_reporting_dbs["db_1"]['name'] = "Kunde 1";
-//   $cfg_reporting_dbs["db_1"]['database'] = "nagios_digger";
-//   $cfg_reporting_dbs["db_1"]['table'] = "log1";
-//   
-//   $cfg_reporting_dbs["db_2"]['name'] = "Kunde 2";
-//   $cfg_reporting_dbs["db_2"]['database'] = "nagios_digger";
-//   $cfg_reporting_dbs["db_2"]['table'] = "log2";
-  
-  
+   
+  $conf_dir = "./conf.d/";
   
   //IF using auth, Source for username. Normaly $_SERVER["REMOTE_USER"]
-  $cfg['env_user']  = $_SERVER["REMOTE_USER"];
+  $cfg['env_user']  = "omdadmin";

@@ -30,11 +30,11 @@ class livestatus
   private $sockets;
   private $open_sockets = array();
   private $auth_user;
-  public function __construct($sockets)
+  public function __construct()
   {
      global $cfg;
      $this->auth_user = $cfg['env_user'];
-     $this->sockets = $sockets;
+     $this->sockets = $cfg['socket'];
   }
    
    function __destruct()
