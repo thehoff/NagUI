@@ -3,6 +3,8 @@
 class livestatus_report extends report {
 
   private $site;
+  private $filter_time;
+  private $filter_warnings = "Filter: state = 1\nOr: 2\n";
   
   public function __construct($site)
   {
@@ -12,13 +14,59 @@ class livestatus_report extends report {
   public function getReportYears()
   { 
     global $livestatus;
-    $livestatus->query("GET HOSTS\n");
+//     $livestatus->query("GET HOSTS\n");
     return false;
   }
+  
+  public function setByTimeperiod($period)
+  {	  
+     switch($period)
+      {
+// 	case "lastyear":
+//           $year = (int)date("Y");
+// 	  $year = $year - 1970;
+// 	  $year = $year * 31536000;
+// 	  $diff   = $year;
+// 	break;
+// 	
+// 	case "last6months":
+// 	   $diff   = time() - 86400;
+// 	break;
+// 	
+// 	case "lastmonth":
+// 	   $diff   = time() - 86400;
+// 	break;
+// 	
+// 	case "last2weeks":
+// 	   $diff   = time() - 86400;
+// 	break;
+// 	
+// 	case "lastweek":
+// 	   $diff   = time() - 86400;
+// 	break;
+	
+	case "24hours":
+	  $diff   = time() - 86400;
+	break;
+	
+	default:
+	   $diff   = time() - 86400;
+	break;
+      }
+   $this->filter_time = "Filter: time > $diff\n";
+
+  }
+  
   
   public function getAvg($group)
   {
     return array("av" => 10, "stddev" => 20);
+  }
+  
+  
+  public function setNoWarnings()
+  {
+    $this->filter_warnings = "";
   }
   
   public function getEntries($group)
@@ -37,19 +85,29 @@ class livestatus_report extends report {
        break;
     }
     
-    $query = "GET log\nFilter: state = 1\nFilter: state = 2\nFilter: state = 3\nOr: 3\n";
+    $query = "GET log\n";
+    $query .=  $this->filter_time;
+    $query .= "Filter: state = 2\n";
+    $query .= $this->filter_warnings;
     
-    $query_exec = $query."Stats: state != 9999\nStatsGroupBy: $group2\n";
+    $query .= "Stats: state != 9999\n";
+//     $query .= "Stats: min time\n"; # Did not work with livestatus yet
+//     $query .= "Stats: max time\n"; # Did not work with livestatus yet
+    $query .= "StatsGroupBy: $group2\n";
+//     print "<pre>$query</pre>";
     $columns = array($group,"n_events");
-    $return = $output->renderOutput($livestatus->query($query_exec),$columns);
     
-    $query_exec = $query."Columns: max time\nStatsGroupBy: $group2\n";
-    $columns = array($group,"last");
-    $return = array_merge($return,$output->renderOutput($livestatus->query($query_exec),$columns));
+    $query_out = $output->renderOutput($livestatus->query($query),$columns);
+    $sort_array = array();
+    foreach($query_out AS $key => $inhalt)
+    {
+       $sort_array[$key] = $inhalt['n_events'];
+       
+    }
     
-    
-    
-    return $return;
+    array_multisort($sort_array,SORT_NUMERIC,SORT_DESC,$query_out);
+    return $query_out;
+
     
   }
 

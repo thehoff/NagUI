@@ -10,7 +10,7 @@
   <input type="submit" value="go">
  </form>
  
-<h1>Statistik nach {$what|ucfirst}</h1>
+<h1>Stats for {$what|ucfirst}</h1>
  <form method="GET">
  <input type="hidden" name="name" value="report">
  <input type="hidden" name="source_type" value="{$source_type}">
@@ -20,7 +20,7 @@
  <table class="option_table">
   <tr>
    <td>
-    Gruppierung: 
+    Grouping: 
     <select name="was">
     {if $what == "host"}
       <option value="host">Host</option>
@@ -34,46 +34,46 @@
     <input type="checkbox" name="warnings" value="1" {$warning_stats}> Warnings zeigen
    </td>
    <td>
-    Zeitraum:
+    Timeperiod:
      <select name="jahr">
       {foreach item=wert from=$jahre}
       <option value="{$wert}">{$wert}</option>
       {/foreach}
      </selct> 
-     <input type="submit" name="nach_Jahr" value="Jahr">
-    <b>ODER<b>
+     <input type="submit" name="nach_Jahr" value="Year">
+    <b>OR<b>
      <select name="last">
-      <option value="24hours">24 Stunden</option>
-      <option value="lastyear">Jahr</option>
-      <option value="last6months">6 Monate</option>
-      <option value="lastmonth">31 Tage</option>
-      <option value="last2weeks">14 Tage</option>
-      <option value="lastweek">7 Tage</option>
+      <option value="24hours">24h</option>
+      <option value="lastyear">Year</option>
+      <option value="last6months">6 Months</option>
+      <option value="lastmonth">31 Days</option>
+      <option value="last2weeks">14 Days</option>
+      <option value="lastweek">7 Days</option>
      </select>
-     <input type="submit" name="Zeitraum" value="Zeitraum">
+     <input type="submit" name="Zeitraum" value="Time period">
    </td>
   </tr>
   <tr>
    <td colspan="2">
     <u>
      {if isset($nach_jahr)}
-       Angezeigt wird {$nach_jahr}
+       Shown are year {$nach_jahr}
      {elseif isset($nach_zeitraum)}
        {if $nach_zeitraum == 'lastyear'}
-         Angezeigt werden die letzten 12 Monate
+         Shown are the last 12 months
        {elseif $nach_zeitraum == 'last6months'}
-          Angezeigt werden die letzten 6 Monate
+          Shown are the last 6 months
        {elseif $nach_zeitraum == 'lastmonth'}   
-          Angezeigt werden die letzten 31 Tage
+          Shown are the last 31 days
        {elseif $nach_zeitraum == 'last2weeks'}
-          Angezeigt werden die letzten 2 Wochen
+          Shown are the last 2 months
        {elseif $nach_zeitraum == 'lastweek'} 
-          Angezeigt werden die letzten 7 Tage
+          Shown are the last 7 days
        {elseif $nach_zeitraum == '24hours'}   
-         Angezeigt werden die letzten 24 Stunden
+         Shown are the last 24 hours
        {/if}
      {else}
-       Angezeigt werden die letzten 24 Stunden
+        Shown are the last 24 hours
      {/if}
     </u>
    </td>
@@ -83,9 +83,9 @@
     <table class="default_result">
      <tr>
       <th>{$what|ucfirst}</th>
-      <th>Fehler</th>
-      <th>Erster Fehler</th>
-      <th>Letzter Fehler</th>
+      <th>Error count</th>
+      <th>First errorr</th>
+      <th>Last error</th>
       <th></th>
       <th></th>
       <th></th>
@@ -98,8 +98,8 @@
 	   <td>{$wert.first}</td>
 	   <td>{$wert.last}</td>
 	   <td>{$wert.percentage|round:2}%</td>
-	   <td><a href="#"><img src="./templates/default/img/info.png" title="Details"></a></td>
-	   <td><a href="#"><img src="./templates/default/img/uhr.png" title="Zeiten"></a></td>
+	   <td><a href="#"><img src="./templates/intern/plugins/report/img/info.png" title="Details"></a></td>
+	   <td><a href="#"><img src="./templates/intern/plugins/report/img/uhr.png" title="Zeiten"></a></td>
        </tr>
       {/foreach}  
      </table>
