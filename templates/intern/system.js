@@ -1,14 +1,20 @@
 $(document).ready(function () {
-  updateToolbar();
-  window.setInterval("autoUpdate()", 30000);
+  
+  if($('#toolbar_enable').length > 0)
+  {
+    updateToolbar();
+    window.setInterval("updateToolbar()", 30000);
+  }
+  
+  if($('#autorefresh_form').length > 0)
+  {
+       window.setInterval("updateData()", 30000);
+  } 
+  
 });
 
 
-function autoUpdate()
-{
-   updateToolbar();
-   updateData();
-}
+
 
 function updateToolbar()
 {
@@ -57,10 +63,9 @@ function updateData()
 {
   var form = $('#autorefresh_form');
   var url  = $('#autorefresh_url').val();
-  if(form.length > 0)
-  {
-    $.get(url,form.serialize(),function(data){
-    $('#autorefresh_field').html(data);
-    });
-  }
+
+  $.get(url,form.serialize(),function(data){
+  $('#autorefresh_field').html(data);
+  });
+
 }
