@@ -30,11 +30,11 @@ class livestatus
   private $sockets;
   private $open_sockets = array();
   private $auth_user;
-  public function __construct()
+  public function __construct($sockets)
   {
      global $cfg;
      $this->auth_user = $cfg['env_user'];
-     $this->sockets = $cfg['socket'];
+     $this->sockets = $sockets;
   }
    
    function __destruct()
@@ -50,11 +50,21 @@ class livestatus
       return fsockopen($path, $port, $errid, $errstr, $timeout);
    }
    
-   public function query($query)
+   public function query($query,$site=FALSE)
    {
       $return = array();
+      
+      //Send query over multiple or only one site(s)
+      if($site)
+      {
+        $sites = array();
+        $sites[$site] = $this->sockets[$site];
+      }else
+      {
+        $sites = $this->sockets;
+      }
 
-      foreach($this->sockets AS $sitename => $entries)
+      foreach($sites AS $sitename => $entries)
       {
         $this->open_sockets[$sitename] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
         
