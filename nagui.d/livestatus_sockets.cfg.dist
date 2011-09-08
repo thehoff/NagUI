@@ -1,0 +1,12 @@
+[site1]
+path            = "127.0.0.1" ;unix://path or IP Address to Livestatus socket
+port            = 6557 ;Null if local Socket else Port number for socket
+timeout         = 5 ;Connect Timeout
+auth            = FALSE  ;If TRUE use authorization else FALSE
+
+
+; [siteXYZ]
+; path = ""
+; port = ""
+; timeout = ""
+; auth = ""

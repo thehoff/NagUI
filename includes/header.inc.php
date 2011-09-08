@@ -27,36 +27,17 @@
 
 require("config.php");
 
-#Read Config Files from conf.d bin
-$conf_dir_handle = openDir($conf_dir);
-while($cfg_file = readDir($conf_dir_handle))
-{
-    if(strstr($cfg_file, ".cfg")) 
-    {
-       foreach(parse_ini_file($conf_dir.$cfg_file,TRUE) AS $key => $inhalt);
-       {
-          $namespace = explode("_",$key);
-          $ns     = $namespace[0];
-          if(isset($namespace[1]))
-          {
-            $ns_var = $namespace[1];
-            $cfg[$ns][$ns_var] = $inhalt;
-            unset($ns_var);
-          }else
-          {
-             $cfg[$ns] = $inhalt;
-          }
-          unset($ns);
-          unset($namespace);
-       }
-    } 
-}
+//Read Sockets
+$sockets = parse_ini_file($nagui_conf_dir."livestatus_sockets.cfg",TRUE);
+$cfg['plugins'] = parse_ini_file($nagui_conf_dir."plugins.cfg");
+
 
 require("./class/livestatus.class.php");
 require("./class/output.class.php");
 
 $template = (isset($_GET['template'])) ? $_GET['template'] : $template;
+$cfg += parse_ini_file($template_conf_dir.$template.".cfg",TRUE);
 require("./templates/$template/defaults.php");
 
-$livestatus     = new livestatus();
+$livestatus     = new livestatus($sockets);
 $output         = new output($template);
