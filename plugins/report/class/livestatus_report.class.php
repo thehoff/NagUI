@@ -5,6 +5,8 @@ class livestatus_report extends report {
   private $site;
   private $filter_time;
   private $filter_warnings = "Filter: state = 1\nOr: 2\n";
+  private $avg;
+  private $devation;
   
   public function __construct($site)
   {
@@ -60,7 +62,8 @@ class livestatus_report extends report {
   
   public function getAvg($group)
   {
-    return array("av" => 10, "stddev" => 20);
+    //Wurde bereits in getEntries berechnet
+    return array("avg" => $this->avg, "stddev" => $this->devation);
   }
   
   
@@ -91,25 +94,46 @@ class livestatus_report extends report {
     $query .= $this->filter_warnings;
     
     $query .= "Stats: state != 9999\n";
-//     $query .= "Stats: min time\n"; # Did not work with livestatus yet
-//     $query .= "Stats: max time\n"; # Did not work with livestatus yet
+    $query .= "Stats: min time\n"; # Did not work with livestatus yet
+    $query .= "Stats: max time\n"; # Did not work with livestatus yet
     $query .= "StatsGroupBy: $group2\n";
-//     print "<pre>$query</pre>";
-    $columns = array($group,"n_events");
+    $columns = array($group,"n_events","first","last");
     
-    $query_out = $output->renderOutput($livestatus->query($query),$columns);
+    $query_out = $output->renderOutput($livestatus->query($query,$this->site),$columns);
+    
+   
     $sort_array = array();
+    $total_events = 0;
+    $total_host   = 0;
+    
+    //Vorbereiten um das Array zu Sortieren
     foreach($query_out AS $key => $inhalt)
     {
        $sort_array[$key] = $inhalt['n_events'];
-       
+       //Schleife nutzen um die Anzahl der events zu addieren
+       $total_events = $total_events + $inhalt['n_events'];
+       $total_host++;
+    }
+    //Array Sortieren
+    array_multisort($sort_array,SORT_NUMERIC,SORT_DESC,$query_out);
+    
+    //Prozentsatz ausrechnen
+    foreach($query_out AS $key => $inhalt)
+    {
+       $var = $inhalt['n_events'] * 100;
+       $inhalt['percentage'] =  $var / $total_events;
+       $query_out[$key] = $inhalt;
     }
     
-    array_multisort($sort_array,SORT_NUMERIC,SORT_DESC,$query_out);
+    //Schnitt der Fehler pro Hosts rechnen
+    $this->avg = $total_host/$total_events;
+    $this->devation = sd($sort_array);
+
     return $query_out;
 
     
   }
+   
 
 }
 

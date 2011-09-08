@@ -7,7 +7,8 @@
  $assign = array();
 require('header.inc.php');
 
- $assign["db_sources"] = $cfg["reportdb"];
+ $assign["sources"] = $plugin_cfg;
+ $assign["source"] = $source;
 
 //Wird mit Hosts oder Services gearbeitet
  $assign['what'] = (isset($_GET['was'])) ? $_GET['was'] : "host";
@@ -57,18 +58,12 @@ if(isset($_GET['nach_Jahr']))
  
  
    
- $as_wert = $report->getAvg($what);
  
-
  
-
-
-
   $eintraege = array();
   $entries = $report->getEntries($what);
-//   echo "<pre>";
-//   var_dump($entries);
-//   echo "</pre>";
+  $as_wert = $report->getAvg($what);
+
 
     if(isset($entries[0]) && is_array($entries[0]))
     {
@@ -93,7 +88,6 @@ if(isset($_GET['nach_Jahr']))
 
   function get_color($n, $avg, $stddev)
   {
-//       print "$n:$avg:$stddev<br>";
 	if ($n >= ($avg + $stddev))
 		return " BGCOLOR='#ff6633'";
 
@@ -104,6 +98,18 @@ if(isset($_GET['nach_Jahr']))
 		return " BGCOLOR='#95FF7A'";
 	
 	return '';
+  }
+  
+  
+  //Statistik Funktionen
+  function sd($array)
+  {
+     return sqrt(array_sum(array_map("sd_square",$array, array_fill(0,count($array), (array_sum($array) / count($array) )))) / (count($array)-1) );
+  }
+  
+  function sd_square($x, $mean)
+  {
+        return pow($x - $mean,2);
   }
 
 ?>

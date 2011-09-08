@@ -1,15 +1,14 @@
 {include file="overall_header.html"}
  <form method="GET">
   <input type="hidden" name="name" value="report">
-  <input type="hidden" name="source_type" value="db">
   Source select: <select name="source">
-  {foreach item=wert from=$db_sources}
+  {foreach item=wert from=$sources}
    <option value="{$wert@key}">{$wert.name}</option>
   {/foreach}
   </select>
   <input type="submit" value="go">
  </form>
- 
+ Source is: {$source}
 <h1>Stats for {$what|ucfirst}</h1>
  <form method="GET">
  <input type="hidden" name="name" value="report">
