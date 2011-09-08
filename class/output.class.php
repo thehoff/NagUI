@@ -63,7 +63,7 @@ class output
     {
        $cfg['template'][$this->template] = False;
     }
-    $smarty->assign('template_cfg', $cfg['template'][$this->template]);
+    $smarty->assign('template_cfg', $cfg['template']);
     $smarty->assign('plugins', $cfg['plugins']);
     
     return $smarty;

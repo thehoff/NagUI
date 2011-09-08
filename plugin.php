@@ -29,6 +29,9 @@ require("./includes/header.inc.php");
 
 $plugin_name = $_GET['name'];
 
+
+$plugin_cfg = parse_ini_file($plugin_conf_dir.$plugin_name.".cfg",TRUE);
+
 if(!include("./plugins/$plugin_name/main.inc.php"))
 {
    die("Plugin '$plugin_name' not found");
