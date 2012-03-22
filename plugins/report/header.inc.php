@@ -29,7 +29,8 @@ require("class/report.class.php");
        mysql_query("SET NAMES utf8",$db);
        mysql_query("SET CHARACTER SET utf8",$db);
        require("class/db_report.class.php");
-       $report = new db_report($db,$plugin_cfg[$source]['table']);
+       $table = $plugin_cfg[$source]['table'];
+       $report = new db_report($db,$table);
      
     break;
     

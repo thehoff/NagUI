@@ -6,9 +6,9 @@
  $time = time();
  $assign = array();
 require('header.inc.php');
-
+ $assign["java_script"] = 'plugins/report/system.js';
  $assign["sources"] = $plugin_cfg;
- $assign["source"] = $source;
+ $assign["source"]  = $source;
 
 //Wird mit Hosts oder Services gearbeitet
  $assign['what'] = (isset($_GET['was'])) ? $_GET['was'] : "host";
@@ -64,7 +64,6 @@ if(isset($_GET['nach_Jahr']))
   $entries = $report->getEntries($what);
   $as_wert = $report->getAvg($what);
 
-
     if(isset($entries[0]) && is_array($entries[0]))
     {
         foreach($entries AS $row)
@@ -74,8 +73,11 @@ if(isset($_GET['nach_Jahr']))
         }
     }else
     {
-      $entries['color'] = get_color($entries["n_events"], $as_wert["avg"], $as_wert["stddev"]);
-      $eintraege[] = $entries;
+        if($entries !== False)
+        {
+            $entries['color'] = get_color($entries["n_events"], $as_wert["avg"], $as_wert["stddev"]);
+            $eintraege[] = $entries;    
+        }
     }
 
  

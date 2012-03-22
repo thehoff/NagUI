@@ -14,8 +14,8 @@
  <input type="hidden" name="name" value="report">
  <input type="hidden" name="source_type" value="{$source_type}">
  <input type="hidden" name="source" value="{$source}">
- 
- 
+
+
  <table class="option_table">
   <tr>
    <td>
@@ -56,7 +56,7 @@
    <td colspan="2">
     <u>
      {if isset($nach_jahr)}
-       Shown are year {$nach_jahr}
+       Shown is year {$nach_jahr}
      {elseif isset($nach_zeitraum)}
        {if $nach_zeitraum == 'lastyear'}
          Shown are the last 12 months
@@ -79,6 +79,7 @@
   </tr>
   <tr>
    <td colspan="2">
+   {if $eintraege}
     <table class="default_result">
      <tr>
       <th>{$what|ucfirst}</th>
@@ -97,13 +98,17 @@
 	   <td>{$wert.first}</td>
 	   <td>{$wert.last}</td>
 	   <td>{$wert.percentage|round:2}%</td>
-	   <td><a href="#"><img src="./templates/intern/plugins/report/img/info.png" title="Details"></a></td>
-	   <td><a href="#"><img src="./templates/intern/plugins/report/img/uhr.png" title="Zeiten"></a></td>
+	   <td><a class="report_details" r_was="{$what}" r_item="{$wert.$what}"  href="#"><img src="./templates/intern/plugins/report/img/info.png" title="Details"></a></td>
+	   <td><a class="report_timeline" href="#"><img src="./templates/intern/plugins/report/img/uhr.png" title="Timeline"></a></td>
        </tr>
       {/foreach}  
      </table>
+     {else}
+No reportings in this timerange
+{/if}
  </td></tr>
 </table>
+
 </form>
 
 {include file="overall_footer.html"}
