@@ -2,3 +2,8 @@
   background-color: red;
   color: red;
 }
+
+.ui-header .ui-title, .ui-footer .ui-title {
+    white-space: normal; 
+    text-overflow: none;
+}
