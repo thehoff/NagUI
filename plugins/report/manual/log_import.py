@@ -121,7 +121,10 @@ for client in client_job_list:
       aus = match.groups();
       
       if int(aus[0]) > last_entry[0]:
-        sql = "INSERT INTO %s VALUES (FROM_UNIXTIME('%s'),'%s','%s','%s','%s','%s','%s')" % (conf['db_table'],aus[0],aus[1],aus[2],aus[3],aus[4],aus[5],aus[6])
+        sql = "INSERT INTO %s VALUES (FROM_UNIXTIME('%s'),'%s','%s','%s','%s','%s','%s')" % \
+        (conf['db_table'],aus[0].encode('string-escape'), aus[1].encode('string-escape'),\
+        aus[2].encode('string-escape'), aus[3].encode('string-escape'), aus[4].encode('string-escape'),\
+        aus[5].encode('string-escape'), aus[6].encode('string-escape'))
         try:
           cursor.execute(sql)
           db.commit()

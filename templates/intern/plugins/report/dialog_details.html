@@ -1,0 +1,9 @@
+<div id="dialog_{$item}" title="Details for {$title} ({$source})">
+ <table class="default_result">
+	<tr><th>Entry</th><th>Error</th><th>Count</th></tr>
+     {foreach item=aus from=$items}
+      <tr><td></td><td>{$aus.beschreibung}</td><td>{$aus.n_events}</td></tr>
+     {/foreach}
+        
+ <table>
+</div>

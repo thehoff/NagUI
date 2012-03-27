@@ -28,10 +28,10 @@
   //Default Template
   $template = "intern";
    
-  $user_conf_dir 	= "./conf.d/";
-  $nagui_conf_dir 	= "./nagui.d/";
+  $user_conf_dir 		= "./conf.d/";
+  $nagui_conf_dir 		= "./conf.d/";
   $template_conf_dir 	= "./template.d/";
-  $plugin_conf_dir 	= "./plugin.d/";
+  $plugin_conf_dir 		= "./conf.d/";
   
   //IF using auth, Source for username. Normaly $_SERVER["REMOTE_USER"]
   $cfg['env_user']  = "omdadmin";

@@ -25,14 +25,16 @@
 # to the Free Software Foundation, Inc., 51 Franklin St,  Fifth Floor,
 # Boston, MA 02110-1301 USA.
 
-require("./includes/header.inc.php");
+require(dirname(__FILE__)."/includes/header.inc.php");
 
 $plugin_name = $_GET['name'];
 
 
 $plugin_cfg = parse_ini_file($plugin_conf_dir.$plugin_name.".cfg",TRUE);
 
-if(!include("./plugins/$plugin_name/main.inc.php"))
+$plugin_file = (!isset($_GET['file'])) ? 'main.inc' :  $_GET['file'];
+
+if(!include("./plugins/$plugin_name/$plugin_file.php"))
 {
    die("Plugin '$plugin_name' not found");
 }

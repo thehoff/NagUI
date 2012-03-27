@@ -47,48 +47,56 @@ class livestatus
    
    private function connectSocket($path,$port,$timeout) 
    {
-      return fsockopen($path, $port, $errid, $errstr, $timeout);
+		if($socket = @fsockopen($path, $port, $errid, $errstr, $timeout))
+		{
+			return $socket;
+		}else
+		{	
+			return False;
+		}
    }
    
-   public function query($query,$site=FALSE)
-   {
-      $return = array();
+	public function query($query,$site=FALSE)
+	{
+		$return = array();
       
-      //Send query over multiple or only one site(s)
-      if($site)
-      {
-        $sites = array();
-        $sites[$site] = $this->sockets[$site];
-      }else
-      {
-        $sites = $this->sockets;
-      }
+		//Send query over multiple or only one site(s)
+		if($site)
+		{
+			$sites = array();
+			$sites[$site] = $this->sockets[$site];
+		}else
+		{
+			$sites = $this->sockets;
+		}
 
-      foreach($sites AS $sitename => $entries)
-      {
-        $this->open_sockets[$sitename] = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']);
-        
-        $array_return = json_decode($this->queryDo($this->open_sockets[$sitename],$query,$entries['auth']));
-        if(is_array($array_return))
-        {
-         foreach($array_return AS $index => $wert)
-         {
-           $array_return[$index][] = $sitename;
-         }
-        }elseif($array_return === NULL)
-        {
-           //If empty returnvalue form query
-           $array_return = array();
-        }else
-        {
-          //Workarround if only one item is returnt from socket
-           $tmp = explode(";",$array_return);
-           $array_return = array($tmp);
-           unset($tmp);
-        }   
-        $return = array_merge($return,$array_return);
-      }
-      return $return;
+		foreach($sites AS $sitename => $entries)
+		{
+			if($socket = $this->connectSocket($entries['path'],$entries['port'],$entries['timeout']))
+			{
+				$this->open_sockets[$sitename] = $socket;
+				$array_return = json_decode($this->queryDo($this->open_sockets[$sitename],$query,$entries['auth']));
+				if(is_array($array_return))
+				{
+					foreach($array_return AS $index => $wert)
+					{
+						$array_return[$index][] = $sitename;
+					}
+				}elseif($array_return === NULL)
+				{
+					//If empty returnvalue form query
+					$array_return = array();
+				}else
+				{
+					//Workarround if only one item is returnt from socket
+					$tmp = explode(";",$array_return);
+					$array_return = array($tmp);
+					unset($tmp);
+				}   
+				$return = array_merge($return,$array_return);
+			}
+		}
+		return $return;
    }
     
    /**

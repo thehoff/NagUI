@@ -1,4 +1,5 @@
 ;To activate a plugin type: plugin_name = "Name for navigation"
 ;To deaktivate just comment out
-query   = "Query Browser"
 report  = "Reporting"
+query   = "Live Query Browser"
+

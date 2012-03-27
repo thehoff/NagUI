@@ -6,6 +6,9 @@ switch($_GET['job'])
     case "details": 
         $item    = $_GET['item'];
         $was     = $_GET['was'];
+        $title	 = $_GET['title'];
+        
+        
         $where   = stripslashes($_GET['where']);
         $where   = "$where AND $was = '$item' AND status != 'OK'";
 
@@ -16,29 +19,18 @@ switch($_GET['job'])
         {
             $spalte = "host";
         }
-        echo "<div id=\"dialog_$item\" title=\"Details for $item\">
-        ";  
         
-        $query = "SELECT service,host,beschreibung, COUNT(*) AS n_events FROM $table $where GROUP BY host, beschreibung ORDER BY n_events DESC";
-	
-        $results = mysql_query($query);
-        $n = $tot_n_events = $dtot_n_events = 0;
-        echo "<table class=\"default_result\">
-        <tr><th>Entry</th><th>Error</th><th>Count</th></tr>";
-
-        while($row = mysql_fetch_row($results))
-        {	 
-            echo "<tr><td>".$row[$spalte]."</td><td>".$row['beschreibung']."</td><td>". $row['n_events']."</td></tr>";
+        $filter = '';
         
-            $tot_n_events += $row['n_events'];
-            $dtot_n_events += $row['n_events'] * $row['n_events'];
-            $n++;
-        }
-        echo "<table>";
-        $avg_n_events = $tot_n_events / $n;
-
-        echo "Error Average ".round($avg_n_events,2);
-        echo "</div>";
+        $assign = array(
+			"item" 		=> $item,
+			"title" 	=> $source,
+			"source" 	=> $title,
+			"items"		=> $report->getEvents($item, $filter),
+        );
+        
+        $output->smartyDirect($assign,'plugins/report/dialog_details.html');
+        
 
   break;
   

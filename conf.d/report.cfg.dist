@@ -1,0 +1,17 @@
+[main_cfg]
+db_host = "localhost"
+db_user = "USER"
+db_pass = "PASSWORD"
+default_source = "db_testdb"
+default_time_period = "lastyear"
+
+[db_testdb]
+name = "Test Datenbank 1"
+type = "db"
+database = "nagui_digger"
+table = "log1"
+
+[live_1]
+name = "Livestatus Backend"
+type = "livestatus"
+socket = "site1"

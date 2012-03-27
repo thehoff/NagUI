@@ -14,23 +14,20 @@ require('header.inc.php');
  $assign['what'] = (isset($_GET['was'])) ? $_GET['was'] : "host";
  
  // Verfügbare Zeiträume auslesen
- $assign['jahre'] = $report->getReportYears();
-
-
-
+ $assign['avail_years'] = $report->getReportYears();
 
 if(isset($_GET['nach_Jahr']))
 {
-  $assign['nach_jahr'] = $_GET['jahr'];
-  $report->setByYear($assign['nach_jahr']);
+	$assign['nach_jahr'] = $_GET['jahr'];
+	$report->setByYear($assign['nach_jahr']);
 }elseif(isset($_GET['Zeitraum']))
 {
-  $assign["nach_zeitraum"] = $_GET['last'];
-  
-  $report->setByTimeperiod($_GET['last']);
+	$assign["nach_zeitraum"] = $_GET['last'];
+	$report->setByTimeperiod($_GET['last']);
 }else
 { 
- $report->setByTimeperiod("24hours");
+	$assign["nach_zeitraum"] = $plugin_cfg['main_cfg']['default_time_period'];
+	$report->setByTimeperiod($plugin_cfg['main_cfg']['default_time_period']);
 
 }
  
@@ -64,12 +61,12 @@ if(isset($_GET['nach_Jahr']))
   $entries = $report->getEntries($what);
   $as_wert = $report->getAvg($what);
 
-    if(isset($entries[0]) && is_array($entries[0]))
+	if(isset($entries[0]) && is_array($entries[0]))
     {
         foreach($entries AS $row)
         {
-          $row['color'] = get_color($row["n_events"], $as_wert["avg"], $as_wert["stddev"]);
-          $eintraege[] = $row;
+			$row['color'] = get_color($row["n_events"], $as_wert["avg"], $as_wert["stddev"]);
+			$eintraege[] = $row;
         }
     }else
     {

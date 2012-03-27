@@ -1,7 +1,11 @@
 <?php
 
-$source = (isset($_GET['source'])) ? $_GET['source'] : "No Source selected";
+if(!isset($HEADER_INCLUDED))
+{
+	require("../../includes/header.inc.php");
+}
 
+$source = (isset($_GET['source'])) ? $_GET['source'] : $plugin_cfg['main_cfg']['default_source'];
 
 if(isset($plugin_cfg[$source]['type']))
 {
