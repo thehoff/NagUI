@@ -3,7 +3,7 @@
   <input type="hidden" name="name" value="report">
   Source select: <select name="source">
   {foreach item=wert from=$sources}
-   <option value="{$wert@key}">{$wert.name}</option>
+    <option value="{$wert@key}">{$wert.name}</option>
   {/foreach}
   </select>
   <input type="submit" value="go">
@@ -34,12 +34,12 @@
    </td>
    <td>
     Timeperiod:
-     <select name="jahr">
+     <select name="year">
       {foreach item=wert from=$avail_years}
 		<option value="{$wert}">{$wert}</option>
       {/foreach}
      </selct> 
-     <input type="submit" name="nach_Jahr" value="Year">
+     <input type="submit" name="for_year" value="Year">
     <b>OR<b>
      <select name="last">
       <option value="24hours">24h</option>
@@ -57,18 +57,18 @@
     <u>
      {if isset($nach_jahr)}
        Shown is year {$nach_jahr}
-     {elseif isset($nach_zeitraum)}
-       {if $nach_zeitraum == 'lastyear'}
+     {elseif isset($timeperiod)}
+       {if $timeperiod == 'lastyear'}
          Shown are the last 12 months
-       {elseif $nach_zeitraum == 'last6months'}
+       {elseif $timeperiod == 'last6months'}
           Shown are the last 6 months
-       {elseif $nach_zeitraum == 'lastmonth'}   
+       {elseif $timeperiod == 'lastmonth'}   
           Shown are the last 31 days
-       {elseif $nach_zeitraum == 'last2weeks'}
+       {elseif $timeperiod == 'last2weeks'}
           Shown are the last 2 months
-       {elseif $nach_zeitraum == 'lastweek'} 
+       {elseif $timeperiod == 'lastweek'} 
           Shown are the last 7 days
-       {elseif $nach_zeitraum == '24hours'}   
+       {elseif $timeperiod == '24hours'}   
          Shown are the last 24 hours
        {/if}
      {else}
@@ -98,8 +98,9 @@
 	   <td>{$wert.first}</td>
 	   <td>{$wert.last}</td>
 	   <td>{$wert.percentage|round:2}%</td>
-	   <td><a class="report_details" r_source="{$source}" r_was="{$what}" r_item="{$wert.$what|replace:" ":"_"|replace:".":"_"}" r_title="{$wert.$what}" href="#"><img src="./templates/intern/plugins/report/img/info.png" title="Details"></a></td>
-	   <td><a class="report_timeline" href="#"><img src="./templates/intern/plugins/report/img/uhr.png" title="Timeline"></a></td>
+	   <td><a class="report_details" r_source="{$source}" r_time='{$timeperiod}' r_year="{$for_year}" r_warning="{$warning_stats}" r_soft="{$soft_stats}" r_was="{$what}" r_item="{$wert.$what|escape}" href="#"><img src="./templates/intern/plugins/report/img/info.png" title="Details"></a></td>
+	   
+	   <td><a class="report_timeline" r_source="{$source}" r_time='{$timeperiod}' r_year="{$for_year}" r_warning="{$warning_stats}" r_soft="{$soft_stats}" r_was="{$what}" r_item="{$wert.$what|escape}" href="#"><img src="./templates/intern/plugins/report/img/uhr.png" title="Timeline"></a></td>
        </tr>
       {/foreach}  
      </table>

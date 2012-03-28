@@ -7,7 +7,9 @@
  $assign = array();
 require('header.inc.php');
  $assign["java_script"] = 'plugins/report/system.js';
- $assign["sources"] = $plugin_cfg;
+ $sources = $plugin_cfg;
+ unset($sources['main_cfg']);
+ $assign["sources"] = $sources;
  $assign["source"]  = $source;
 
 //Wird mit Hosts oder Services gearbeitet
@@ -16,17 +18,17 @@ require('header.inc.php');
  // Verfügbare Zeiträume auslesen
  $assign['avail_years'] = $report->getReportYears();
 
-if(isset($_GET['nach_Jahr']))
+if(isset($_GET['for_year']))
 {
-	$assign['nach_jahr'] = $_GET['jahr'];
-	$report->setByYear($assign['nach_jahr']);
+	$assign['for_year'] = $_GET['year'];
+	$report->setByYear($assign['for_year']);
 }elseif(isset($_GET['Zeitraum']))
 {
-	$assign["nach_zeitraum"] = $_GET['last'];
+	$assign["timeperiod"] = $_GET['last'];
 	$report->setByTimeperiod($_GET['last']);
 }else
 { 
-	$assign["nach_zeitraum"] = $plugin_cfg['main_cfg']['default_time_period'];
+	$assign["timeperiod"] = $plugin_cfg['main_cfg']['default_time_period'];
 	$report->setByTimeperiod($plugin_cfg['main_cfg']['default_time_period']);
 
 }

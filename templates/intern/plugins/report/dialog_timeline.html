@@ -1,0 +1,41 @@
+<div id="dialog_{$dialog_id}" title="Stats for {$item} ({$source})">
+
+{if $context == 'host'}
+<h2>Error counts per service</h2>
+<table class="default_result">
+	<tr><th>Service</th><th>Events</th><th></th></tr>
+     {foreach item=aus from=$host_items}
+      <tr>
+        <td>{$aus.service} </td>
+        <td>{$aus.n_events}</td>
+        <td>{$aus.percentage|round:2} %</td>
+      </tr>
+     {/foreach}
+        
+ <table>
+{/if}
+
+<h2>Times</h2>
+
+<table class="default_result">
+	<tr> 
+	   {if $context == 'service'}
+        <th>Host</th>
+        {/if}
+        <th>Time</th>
+        <th>Service</th>
+        <th>Status</th>
+        <th>Description</th></tr>
+     {foreach item=aus from=$items}
+      <tr>
+        {if $context == 'service'}
+        <td>{$aus.host}</td>
+        {/if}
+        <td>{$aus.time}</td>
+        <td>{$aus.service} </td>
+        <td>{$aus.status}</td>
+        <td>{$aus.description}</td>
+      </tr>
+     {/foreach}    
+ <table>
+</div>
