@@ -1,4 +1,5 @@
 {include file="overall_header.html"}
+<h1>Report</h1>
  <form method="GET">
   <input type="hidden" name="name" value="report">
   Source select: <select name="source">
@@ -6,10 +7,11 @@
     <option value="{$wert@key}">{$wert.name}</option>
   {/foreach}
   </select>
-  <input type="submit" value="go">
+  <input type="submit" value="go"> (Source is: {$source})
  </form>
- Source is: {$source}
-<h1>Stats for {$what|ucfirst}</h1>
+
+ 
+<h1>Filter</h1>
  <form method="GET">
  <input type="hidden" name="name" value="report">
  <input type="hidden" name="source_type" value="{$source_type}">
@@ -52,10 +54,11 @@
      <input type="submit" name="Zeitraum" value="Time period">
    </td>
   </tr>
+ 
   <tr>
    <td colspan="2">
-    <u>
-     {if isset($nach_jahr)}
+   <h1>Events grouped by {$what|ucfirst}:
+        {if isset($nach_jahr)}
        Shown is year {$nach_jahr}
      {elseif isset($timeperiod)}
        {if $timeperiod == 'lastyear'}
@@ -74,17 +77,14 @@
      {else}
         Shown are the last 24 hours
      {/if}
-    </u>
-   </td>
-  </tr>
-  <tr>
-   <td colspan="2">
+   
+   </h1>
    {if $eintraege}
     <table class="default_result">
      <tr>
       <th>{$what|ucfirst}</th>
       <th>Error count</th>
-      <th>First errorr</th>
+      <th>First error</th>
       <th>Last error</th>
       <th></th>
       <th></th>

@@ -18,6 +18,8 @@ require('header.inc.php');
  // Verfügbare Zeiträume auslesen
  $assign['avail_years'] = $report->getReportYears();
 
+ $assign['for_year'] 	= '';
+ $assign["timeperiod"] 	= '';
 if(isset($_GET['for_year']))
 {
 	$assign['for_year'] = $_GET['year'];

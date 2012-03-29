@@ -6,17 +6,13 @@ $grouping	= $_GET['was'];
 $dialog_id	= $_GET['dialog_id'];
 
 
-if(isset($_GET['year']))
+if(is_numeric($_GET['year']))
 {
 	$report->setByYear($_GET['year']);
-}elseif(isset($_GET['time']))
-{
-	$report->setByTimeperiod($_GET['time']);
 }else
 {
-	die('Time not set');
+	$report->setByTimeperiod($_GET['time']);
 }
-
 if($_GET['soft'] != 'checked')
 {
 	$report->setNoSoftStats();

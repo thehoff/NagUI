@@ -1,228 +1,118 @@
-
-#container
-{
-	margin: 0 auto;
-	width: 100%;
-	background: #fff;
-}
-
-#header
-{
-	background: #ccc;
-	padding: 10px;
-}
-
-#header h1 { margin: 0; }
-
-#navigation
-{
-	float: left;
-	width: 100%;
-	background: #333;
-}
-
-#navigation ul
-{
-	margin: 0;
+body {
+	background: #FFFFFF url(./tplimages/bg_grey.png) repeat-x;
+	color: #171717;
+	margin: 22px 0;
 	padding: 0;
+	font-family: Verdana;
+	font-size: 11px;
 }
 
-#navigation ul li
-{
-	list-style-type: none;
-	display: inline;
-}
-
-#navigation li a
-{
-	display: block;
-	float: left;
-	padding: 5px 10px;
-	color: #fff;
+a {
+	color: #F46600;
 	text-decoration: none;
-	border-right: 1px solid #fff;
 }
 
-#navigation li a:hover { background: #ccc; }
-
-#content-container1
-{
-	float: left;
-	width: 100%;
-
+a:hover {
+	font-weight: bold;
 }
 
-#content-container2
-{
-	float: left;
-	width: 100%;
+#page {
+	margin: 0 auto;
+	min-width: 968px;
+	position: relative;
+	width: 968px;
 }
 
-#section-navigation
-{
-	float: left;
-	width: 16%;
-	padding: 20px 0;
-	margin: 0 2%;
-	display: inline;
-}
-
-#section-navigation ul
-{
+#header {
+	background-position: 940px 81px;
+	height: 50px;
 	margin: 0;
-	padding: 0;
 }
 
-#section-navigation ul li
-{
-	margin: 0 0 1em;
-	padding: 0;
-	list-style-type: none;
+#navigation span, #box h1 {
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	padding-left: 14px;
+	background: url(./tplimages/title_orange.png) no-repeat;
 }
 
-#content
-{
+#navigation h2 {
+	margin-top: 30px;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	padding-left: 14px;
+	background: url(./tplimages/title_orange.png) no-repeat;
+}
+
+#navigation span a, #box h1 a {
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	padding-left: 0;
+	color: #171717;
+}
+
+
+#content {
 	float: left;
-	width: 56%;
-	padding: 20px 0;
-	margin: 0 0 0 2%;
-}
-
-#content h2 { margin: 0; }
-
-#aside
-{
-	float: right;
-	width: 16%;
-	padding: 20px 0;
-	margin: 0 2% 0 0;
-	display: inline;
-}
-
-#aside h3 { margin: 0; }
-
-#footer
-{
-	clear: both;
-	background: #ccc;
-	text-align: right;
-	padding: 20px;
-	height: 1%;
-} 
-
-/*TABle*/
-
-
-table 
-{
-	text-align: left;
-	border-spacing: 0px;
-	border: 1px solid #aeb3b6;
-	border-collapse: collapse;
-        margin-top: 5px;
 	width: 100%;
+	margin: 0;
 }
 
-
-table a, table, tbody, tfoot, tr, th, td 
-{
-   font-family: Arial, Helvetica, sans-serif;
-	line-height: 2.0em;
-	font-size: 13px;
-	color: #55595c;
-}
-tbody td{
-	line-height: 1.5em;
+#content h1 {
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 12px;
+	padding: 0 0 2px 14px;
+	background: url(./tplimages/title_black.png) no-repeat;
+	border-bottom: 2px solid #171717;
 }
 
-table caption
-{
-	padding: .4em 0 ;
-	font-size: 240%;
-	font-style: normal;
-	color: #FB7E00;
+#content p {
+	text-align: justify;
 }
 
-table a
-{
-	display: block;
-	color: #000;
-
-	
+#box {
+	float: left;
+	width: 170px;
+	margin: 0 18px 0 36px;
 }
 
-table a:hover, table a:focus
-{
-
+.text {
+	float: right;
+	width: 118px;
+	height: 107px;
+	margin: 0 0 15px 20px;
+	background: url(./tplimages/img_bg.png) no-repeat;
 }
 
-table th a
-{
-	color: #fff;
+.text img {
+	width: 107px;
+	height: 107px;
+	margin: 0 1px 0 10px;
+}
+
+.footer {
+	clear: both;
 	text-align: right;
-}
-table .odd th a,table .odd td a,table .odd td{
-	color: #666;
-	padding-right: 1.0 em;
-}
-
-table .odd th,table .odd td{
-	background-color: #DDDDDD;
+	margin: 0 0 20px 0;
+	padding: 0 0 2px 0;
+	border-bottom: 1px solid #D4D4D4;
 }
 
-thead th
-{
-	background-color: black;
-	font-size: 10px;
-	font-weight: normal;
-	color: #fff;
-	padding-left: 2px;
-	
-}
-tfoot{
-	background-color: black;
-	border-top: 1px solid #fff;
-	
-	
-}
-tfoot th,tfoot td{
-	color: #fff;
+/*Tabelle*/
+
+/*Liste von Treffern*/
+.default_result {
+		width: 100%;
 }
 
-tbody th
-{
-        padding-right: 1.0em;
-	color: #25c1e2;
-	font-style: normal;
-	background-color: #fff;
-	border-bottom: 1px dotted #aeb3b6;
-
+/*Unsichtbare Tabelle für Formulare*/
+.option_table {
+		width: 100%;
 }
-
-td
-{
-        color: #000;
-	border-bottom: 1px dotted #aeb3b6;
-	padding-right: 0.5em;
-	padding-left: 2px;
-	
-}
-
-tbody tr.odd
-{
-	border-bottom: 1px dotted #aeb3b6;
-}
-
-tbody tr:hover td
-{
-
-}
-
-tbody tr:hover td,tbody tr:hover th, tbody tr:hover a
-{
-
-}
-
 
 /*Nagios*/
 
